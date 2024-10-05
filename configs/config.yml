@@ -1,0 +1,21 @@
+pathImage: "assets/image"
+support: "t.me/viansk54"
+
+db:
+  host: "127.0.0.1"
+  port: "5432"
+  dbname: "shop"
+  sslmode: "disable"
+
+mail:
+  initial: "Telegram shop"
+  host: "smtp.yandex.ru"
+  port: 465
+
+
+
+
+
+
+
+

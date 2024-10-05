@@ -1,0 +1,296 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+</head>
+<body>
+    <div id="order">
+        <div id="header">
+            <p>Новый заказ</p>
+        </div>
+
+        <div id="body">
+            <div id="orderInfo">
+                <div id="boxOrderNumber">
+                    <a href="#" id="orderURL">Заказ № <span id="orderNumber">{{.Order.ID}}</span></a>
+                    <span id="orderDate"> ( {{.Order.Date}} )</span>
+                </div>
+
+                <table id="tableProductInfo">
+                    <thead>
+                        <tr class="tableHeaderLine">
+                            <td class="tTitle col1">Товар</td>
+                            <td class="tTitle col2">Количество</td>
+                            <td class="tTitle col3">Цена</td>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {{range .Basket}}
+                        <tr class="productLine">
+                            <td class="productName">{{.Name}} {{.Quantity}} шт.</td>
+                            <td class="productQuantity">{{.Count}}</td>
+                            <td class="productPrice">{{(PriceFormat .Price)}} ₽</td>
+                        </tr>
+                    {{end}}
+                        <tr class="delivery">
+                            <td class="tTitle " colspan="2">Доставка:</td>
+                            <td class="deliveryValue">{{.Order.Delivery}}</td>
+                        </tr>
+                        <tr class="methodPayment">
+                            <td class="tTitle " colspan="2">Метод оплаты:</td>
+                            <td class="methodPaymentValue">{{.Order.Pay}}</td>
+                        </tr>
+                        <tr class="totalPayable">
+                            <td class="tTitle" colspan="2">Всего:</td>
+                            <td class="totalPayableValue">{{PriceFormat .TotalCost}} ₽</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div id="boxClientInfo">
+                    <div id="clientInfo">
+                        <span class="fullName" id="txtClientName">ФИО: </span>
+                        <span id="clientName">{{.Order.FullName}}</span>
+                        <p>
+                            <span class="address" id="txtPayAddress">Адрес: </span>
+                            <span href="#" id="clientAddress">{{.Order.Address}}</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div id="boxClientNumber">
+                    <span class="titleNumber">Телефон:</span>
+                    <span id="clientNumber">{{.Order.PhoneNum}}</span>
+                </div>
+
+                <div id="boxClientComment">
+                    <p>
+                        <span class="titleComment">Коментарий к заказу:</span>
+                        <span id="clientComment">{{.Order.Comment}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<style type="text/css">
+* {
+    margin: 0;
+    padding: 0
+}
+
+#order {
+    display: flex;
+    flex-direction: column;
+    width: 530px;
+    min-height: 700px;
+    margin: 10px auto auto auto;
+    font-family: sans-serif;
+    border-radius: 5px;
+    border: 1px solid rgba(57, 57, 59, 0.30);
+    box-shadow: 0 0 6px rgba(57, 57, 59, 0.40);
+}
+
+#header {
+    width: 100%;
+    height: 100px;
+    background-color: #2c86c4;
+    border-radius: 5px 5px 0 0;
+}
+
+#header p {
+    display: block;
+    text-align: center;
+    color: #ffffff;
+    font-size: 27px;
+    font-weight: bold;
+    padding: 35px 0 30px 0;
+}
+
+#body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#orderInfo {
+    display: flex;
+    flex-direction: column;
+    width: 460px;
+    margin: 55px auto auto auto;
+}
+
+#boxOrderNumber {
+    width: 100%;
+    font-size: 15px;
+    margin-bottom: 6px;
+}
+
+#orderURL {
+    color: #2678af;
+}
+
+#orderDate {
+    color: #2678af;
+    font-weight: bold;
+}
+
+#tableProductInfo {
+    width: 100%;
+    min-height: 180px;
+    color: rgba(0, 0, 0, 0.90);
+    font-size: 14px;
+    border-spacing: 0;
+    border-radius: 3px;
+    border: 1px solid rgba(57, 57, 59, 0.2);
+    box-shadow: 0 0 3px rgba(57, 57, 59, 0.50);
+}
+
+#tableProductInfo tr {
+    border: 1px solid rgba(57, 57, 59, 0.2);
+}
+
+#tableProductInfo tr:hover {
+    color: black;
+    background-color: rgba(44, 134, 196, 0.20);
+    transition: background-color 200ms ease-in;
+}
+
+#tableProductInfo td {
+    border: 1px solid rgba(57, 57, 59, 0.2);
+}
+
+#tableProductInfo td:hover {
+    color: black;
+    background-color: rgba(44, 134, 196, 0.20);
+    transition: background-color 200ms ease-in;
+}
+
+.tTitle {
+    font-weight: bold;
+    text-align: center;
+}
+
+.tableHeaderLine {
+    height: 25px;
+}
+
+.productLine {
+    height: 40px;
+    min-height: 30px;
+    max-height: 70px;
+}
+
+.productName {
+    min-width: 170px;
+    max-width: 240px;
+    padding-left: 5px;
+}
+
+.productQuantity {
+    text-align: center;
+}
+
+.productPrice {
+    text-align: center;
+    width: 100px;
+}
+
+.delivery {
+    height: 50px;
+    background-color: rgba(44, 134, 196, 0.05);
+}
+
+.deliveryValue {
+    text-align: center;
+}
+
+.methodPayment {
+    height: 30px;
+    max-height: 50px;
+    background-color: rgba(44, 134, 196, 0.05);
+}
+
+.methodPaymentValue {
+    text-align: center;
+}
+
+.totalPayable {
+    height: 30px;
+    max-height: 50px;
+    background-color: rgba(44, 134, 196, 0.05);
+}
+
+.totalPayableValue {
+    text-align: center;
+}
+
+.address, .fullName {
+    color: #2678af;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#boxClientInfo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 80px;
+    margin: 40px 0 0 0;
+    border-radius: 3px;
+    border: 1px solid rgba(57, 57, 59, 0.2);
+    box-shadow: 0 0 3px rgba(57, 57, 59, 0.50);
+}
+
+#clientInfo {
+    margin: auto auto auto 12px;
+}
+
+#clientName {
+    color: rgba(0, 0, 0, 0.90);
+    font-size: 14px;
+}
+
+#clientAddress {
+    font-size: 14px;
+    text-decoration: none;
+}
+
+#boxClientNumber {
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+#boxClientNumber .titleNumber {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#clientNumber {
+    margin: 1px 0 0 6px;
+}
+
+#boxClientComment {
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    margin: 15px 0 35px 0;
+}
+
+#boxClientComment .titleComment {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#clientComment {
+    margin: 1px 0 0 5px;
+}
+
+</style>

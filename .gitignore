@@ -1,0 +1,6 @@
+/.bin/
+/.vscode/
+/.idea/
+.env
+/logs/log.txt
+/assets/image
